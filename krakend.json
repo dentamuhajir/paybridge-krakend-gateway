@@ -1,0 +1,39 @@
+{
+  "version": 3,
+  "port": 8000,
+  "timeout": "10s",
+  "name": "Paybridge API Gateway",
+  "endpoints": [
+    {
+      "endpoint": "/v1/loan-applications/{id}/approve",
+      "method": "POST",
+      "output_encoding": "no-op",
+      "backend": [
+        {
+          "url_pattern": "/loan-applications/{id}/approve",
+          "method": "POST",
+          "host": ["http://paybridge-loan-svc:8084"],
+          "encoding": "no-op"
+        }
+      ]
+    },
+    {
+      "endpoint": "/v1/loan-applications/{id}",
+      "method": "GET",
+      "backend": [
+        {
+          "url_pattern": "/loan-applications/{id}",
+          "method": "GET",
+          "host": ["http://paybridge-loan-svc:8084"]
+        }
+      ]
+    }
+  ],
+  "extra_config": {
+    "security/cors": {
+      "allow_origins": ["*"],
+      "allow_methods": ["GET", "POST", "PUT", "DELETE"],
+      "allow_headers": ["Origin", "Authorization", "Content-Type", "x-trace-id"]
+    }
+  }
+}
