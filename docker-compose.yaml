@@ -1,14 +1,11 @@
 services:
   paybridge-gateway-svc:
-    # Menggunakan image resmi untuk runtime (server)
     image: krakend:latest 
     container_name: paybridge-gateway-svc
     ports:
       - "8000:8000"
     volumes:
-      # Menggunakan ${PWD} agar Windows memberikan path absolut yang jelas ke Docker
       - "${PWD}/krakend.json:/etc/krakend/krakend.json"
-    # Memanggil binary krakend dengan path lengkap
     command: ["/usr/bin/krakend", "run", "-d", "-c", "/etc/krakend/krakend.json"]
     networks:
       - paybridge_network
