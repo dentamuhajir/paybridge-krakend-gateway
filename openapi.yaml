@@ -1,0 +1,92 @@
+openapi: 3.0.3
+info:
+  title: Paybridge API Gateway
+  version: 1.0.0
+  description: Public API exposed by Paybridge KrakenD Gateway
+
+servers:
+  - url: http://localhost:8000
+
+paths:
+
+  /api/v1/register:
+    post:
+      summary: Register new user
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Registration successful
+
+  /api/v1/login:
+    post:
+      summary: Login user
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Login successful
+
+  /v1/loan-applications:
+    post:
+      summary: Create loan application
+      tags: [Loan]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Loan application created
+
+  /v1/loan-applications/{id}/approve:
+    post:
+      summary: Approve loan application
+      tags: [Loan]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Loan approved
+
+  /api/v1/test/aggregate:
+    get:
+      summary: Aggregate test downstream responses
+      tags: [Aggregation]
+      responses:
+        "200":
+          description: Aggregated response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  downstream1:
+                    type: object
+                  downstream2:
+                    type: object
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

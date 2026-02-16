@@ -9,6 +9,14 @@ services:
     command: ["/usr/bin/krakend", "run", "-d", "-c", "/etc/krakend/krakend.json"]
     networks:
       - paybridge_network
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    ports:
+      - "8088:8080"
+    environment:
+      SWAGGER_JSON: /openapi.yaml
+    volumes:
+      - ./openapi.yaml:/openapi.yaml
 
 networks:
   paybridge_network:
