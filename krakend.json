@@ -64,6 +64,27 @@
           "encoding": "no-op"
         }
       ]
+    },
+    {
+      "endpoint": "/api/v1/test/aggregate",
+      "method": "GET",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "group": "downstream1",
+          "url_pattern": "/api/v1/test/downstream/1",
+          "method": "GET",
+          "host": ["http://paybridge-user-svc:8080"],
+          "encoding": "json"
+        },
+        {
+          "group": "downstream2",
+          "url_pattern": "/api/v1/test/downstream/2",
+          "method": "GET",
+          "host": ["http://paybridge-user-svc:8080"],
+          "encoding": "json"
+        }
+      ]
     }
   ],
   "extra_config": {
